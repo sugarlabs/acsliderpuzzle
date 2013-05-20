@@ -1,0 +1,46 @@
+From d2de4ea35d49441eb19f7844d431e3f22259bbee Mon Sep 17 00:00:00 2001
+From: Ajay Garg <ajay@activitycentral.com>
+Date: Mon, 20 May 2013 20:32:16 +0530
+Subject: [PATCH] sdxo#1172 :Fixing the activity-crash.
+Organization: Sugar Labs Foundation
+
+
+Signed-off-by: Ajay Garg <ajay@activitycentral.com>
+---
+ SliderPuzzleActivity.py | 7 ++++++-
+ activity/activity.info  | 2 +-
+ 2 files changed, 7 insertions(+), 2 deletions(-)
+
+diff --git a/SliderPuzzleActivity.py b/SliderPuzzleActivity.py
+index 31c1c87..01c4c34 100644
+--- a/SliderPuzzleActivity.py
++++ b/SliderPuzzleActivity.py
+@@ -323,7 +323,12 @@ class SliderPuzzleActivity(Activity, TubeHelper):
+         self.frozen = FrozenState(self.ui)
+         self.ui.game.connect('shuffled', self.frozen.sync)
+ 
+-        TubeHelper.__init__(self, tube_class=GameTube, service=SERVICE)
++        # Commmenting this line, as this is causing the activity to
++        # load.
++        #
++        # For the curious, collaboration has not been working on this
++        # activity since post-0.94.
++        #TubeHelper.__init__(self, tube_class=GameTube, service=SERVICE)
+ 
+     def _destroy_cb(self, data=None):
+         return True
+diff --git a/activity/activity.info b/activity/activity.info
+index e13539d..b03ff2d 100644
+--- a/activity/activity.info
++++ b/activity/activity.info
+@@ -3,6 +3,6 @@ name = Slider Puzzle
+ bundle_id = org.worldwideworkshop.olpc.SliderPuzzle
+ exec = sugar-activity SliderPuzzleActivity.SliderPuzzleActivity
+ icon = activity-sliderpuzzle
+-activity_version = 10
++activity_version = 10.1
+ show_launcher = yes
+ license = GPLv2+
+-- 
+1.7.11.7
+
